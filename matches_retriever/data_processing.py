@@ -20,8 +20,15 @@ def _calc_primary_player_ages(match_dates, player_dob):
 
 	return player_age_years
 
-def _calc_opponent_ages(match_dates, opponent_dobs=[], opponent_ages=[]):
-	return NotImplementedError("_calc_opponent_ages not implemented")
+def _calc_opponent_ages(match_dates, opponent_dobs):
+	"""Return opponent's ages for all matches as a numpy array"""
+	opponents_age_years = np.array([])
+
+	for match_date, opponent_dob in zip(match_dates, opponent_dobs):
+		opponent_age = _calculate_age_years(match_date, opponent_dob)
+		opponents_age_years = np.append(opponents_age_years, opponent_age)
+
+	return opponents_age_years
 
 def _calculate_age_years(match_date, date_of_birth):
 	"""Return age in years for provided match date and player date of birth"""
