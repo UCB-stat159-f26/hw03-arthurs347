@@ -25,7 +25,7 @@ def _get_player_dob(name):
 def _get_abstract_page(name):
 	"""Return the abstract page for a player as html"""
 	formatted_name = _format_name(name)
-	formatted_url = f"https://www.tennisabstract.com/cgi-bin/wplayer-classic.cgi?p={formatted_name}""
+	formatted_url = f"https://www.tennisabstract.com/cgi-bin/wplayer-classic.cgi?p={formatted_name}"
 
 	response = requests.get(formatted_url)
 	html = response.text

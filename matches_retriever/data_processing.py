@@ -3,7 +3,7 @@ import re
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
-from data_fetching import get_career_stats
+from .data_fetching import get_career_stats
 
 def process_data_for_plot(name):
 	"""Returns processed data to reproduce plot as a pandas dataframe"""
@@ -14,6 +14,21 @@ def process_data_for_plot(name):
 	
 	return NotImplementedError("process_data_for_plot not implemented")
 
+def _handle_opponent_ages(match_dates, opponent_dobs_or_age):
+	"""Handle and return opponent ages if input is dob's or actual ages (in years)"""
+	# Check if values are formatted as dobs or ages
+	try:
+		# Case of values formatted as dobs by checking first value type
+		datetime.strptime(opponent_dobs_or_age[0], "%Y%m%d")
+		opponent_ages = _calc_opponent_ages(match_dates, opponent_dobs_or_age)
+		print("String")
+	except TypeError:
+		# Case of values formatted as years
+		print("Years")
+		opponent_ages = opponent_dobs_or_age
+		
+	return opponent_ages
+	
 def _clean_data_for_processing(raw_data):
 	"""Return cleaned df with only necessary data"""
 	data_renamed = raw_data.rename(columns={'0': 'Date', '1': 'Tournament', '4': 'Match_Outcome_Player', 

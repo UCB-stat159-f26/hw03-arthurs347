@@ -86,3 +86,31 @@ assert cleaned_df["Date"].tolist() == raw_df["0"].tolist()assert cleaned_df["Opp
 ```
 
 **Note:** Your sample male and female data have different numbers of columns, but this test handles both because each is converted into its own DataFrame.
+
+PROMPT:
+how to check if a date is valid in python based on this format 19700503
+
+RESPONSE:
+Use `datetime.strptime()` with the format `"%Y%m%d"` and catch a `ValueError` if the date is invalid.
+
+```
+from datetime import datetimedef is_valid_date(date):    try:        datetime.strptime(date, "%Y%m%d")        return True    except ValueError:        return False
+```
+
+### **Examples**
+
+```
+print(is_valid_date("19700503"))  # Trueprint(is_valid_date("19701303"))  # False (invalid month)print(is_valid_date("19700230"))  # False (invalid day)print(is_valid_date("abcdefgh"))  # False
+```
+
+### **Format breakdown**
+
+- `%Y` — Four-digit year (`1970`)
+- `%m` — Two-digit month (`05`)
+- `%d` — Two-digit day (`03`)
+
+**For strict validation of exactly 8 digits**, add a length and digit check because `strptime()` can accept dates without leading zeros:
+
+```
+def is_valid_date(date):    if len(date) != 8 or not date.isascii() or not date.isdigit():        return False    try:        datetime.strptime(date, "%Y%m%d")        return True    except ValueError:        return False
+```

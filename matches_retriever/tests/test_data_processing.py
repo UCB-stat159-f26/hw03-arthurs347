@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import json
 from matches_retriever.data_processing import (
+	_handle_opponent_ages,
 	_clean_data_for_processing,
 	_calc_primary_player_ages,
 	_calc_opponent_ages, 
@@ -35,6 +36,19 @@ male_player_career = [
 	 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
 	 "2001-784-015", "", "1", "1"]
 ]
+
+def test_handle_opponent_ages_handles_dobs_and_ages():
+	match_dates = np.array(["20000101", "20010101"])
+	opponent_dobs = np.array(["19800101", "19810101"])
+	opponent_years = np.array([20, 20])
+
+	handled_opponent_dobs = _handle_opponent_ages(match_dates, opponent_dobs)
+	handled_opponent_years = _handle_opponent_ages(match_dates, opponent_years)
+	
+	expected_years = np.array([20, 20])
+
+	assert handled_opponent_dobs == pytest.approx(expected_years, abs=0.5)
+	assert handled_opponent_years == pytest.approx(expected_years, abs=0.5)
 
 def test_clean_data_for_processing():
 	raw_df_female = pd.DataFrame(female_player_career)
