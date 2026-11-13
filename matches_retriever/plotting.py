@@ -6,8 +6,24 @@ from matplotlib.lines import Line2D
 from .data_fetching import _extract_names
 
 def plot_career_matches(career_matches):
-	return NotImplementedError("plot_career_matches not implemented")
+	fig, ax = plt.subplots(figsize=(12, 9))
+	fig.subplots_adjust(top=0.82)
 
+	# Extract first name 
+	fullname = career_matches.attrs['fullname']
+	fullname_split = _extract_names(fullname)
+	first_name = fullname_split[0]
+	
+	_plot_datapoints(career_matches)
+	_set_xy_axis_marks()
+	_set_labels(first_name)
+	_set_styling()
+
+	_add_legend(ax, first_name)
+	_add_text_and_title(ax, fig)
+
+	plt.show()
+	
 def _plot_datapoints(data):
 	"""Plot the datapoints on the graph"""
 	palette = {
@@ -34,13 +50,8 @@ def _set_xy_axis_marks():
 	# Add horizontal axis line
 	plt.axhline(y=0, linewidth=0.5, c='black')
 
-def _set_labels(name):
+def _set_labels(first_name):
 	"""Set labels for plot"""
-	# Extract first name
-	full_name = _extract_names(name)
-	first_name = full_name[0]
-
-	# Add and modify labels
 	plt.xlabel(f"{first_name}'s \n age:", c='gray', loc='left')
 	ax.xaxis.set_label_position("top")
 	plt.ylabel(None)
@@ -55,12 +66,8 @@ def _set_styling():
 	ax.spines['left'].set_visible(False)
 	ax.spines['right'].set_visible(False)
 
-def _add_legend(ax, name):
+def _add_legend(ax, first_name):
 	"""Add legend to plot"""
-
-	# Extract first name
-	full_name = _extract_names(name)
-	first_name = full_name[0]
 	
 	legend_handles = [
 	    Line2D(
