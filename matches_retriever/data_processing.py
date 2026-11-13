@@ -1,3 +1,5 @@
+import requests
+
 def get_career_stats(name):
 	"""Return the careers stats for a given player"""
 	url = _get_url_from_name(name)
@@ -7,17 +9,22 @@ def get_career_stats(name):
 def _get_url_from_name(name):
 	"""Create tennisabstract career url from name"""
 	formatted_name = _format_name(name)
-		
-	formated_url = f"https://www.tennisabstract.com/jsmatches/{first_name_capitalized}{last_name_capitalized}Career.js"
+	formated_url = f"https://www.tennisabstract.com/jsmatches/{formatted_name}Career.js"
 
-	#TODO: Check if player exists
-	
-	raise NotImplementedError("_get_url_from_name not implemented")
+	# Check if player exists
+	response = requests.get(formated_url)
+	status_code = response.status_code
+
+	if (status_code == 404):
+		raise ValueError("Player not found")
+		
+	return formated_url
 
 
 def _format_name(name):
 	"""Returns player name as formatted in tennisabstract url"""
-		# Split provided name string based on provided format
+	#TODO: Reduce to under 10 lines
+	# Split provided name string based on provided format
 	if (" " in name):
 		split_name = name.split()
 	else:
