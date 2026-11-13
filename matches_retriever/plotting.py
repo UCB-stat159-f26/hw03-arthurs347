@@ -8,8 +8,13 @@ from .data_fetching import _extract_names
 def plot_career_matches(career_matches):
 	return NotImplementedError("plot_career_matches not implemented")
 
-def _plot_datapoints(data, palette):
+def _plot_datapoints(data):
 	"""Plot the datapoints on the graph"""
+	palette = {
+	    "W": "#40C4E8",  # Cyan: match won
+	    "L": "#963B91"   # Purple: match lost
+	}
+	
 	sns.scatterplot(data,  x='Primary_Player_Age', y='Opponent_Years_Diff',
 					hue='Match_Outcome_Player', size=10, palette=palette)
 
