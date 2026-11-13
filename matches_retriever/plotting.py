@@ -3,6 +3,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+from .data_fetching import _extract_names
 
 def plot_career_matches(career_matches):
 	return NotImplementedError("plot_career_matches not implemented")
@@ -29,3 +30,13 @@ def _set_xy_axis_marks():
 	# Add horizontal axis line
 	plt.axhline(y=0, linewidth=0.5, c='black')
 
+def _set_labels(name):
+	"""Set labels for plot"""
+	# Extract first name
+	full_name = _extract_names(name)
+	first_name = full_name[0]
+
+	# Add and modify labels
+	plt.xlabel(f"{first_name}'s \n age:", c='gray', loc='left')
+	ax.xaxis.set_label_position("top")
+	plt.ylabel(None)
