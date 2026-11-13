@@ -1,18 +1,30 @@
 import numpy as np
 import re
 import requests
+import pandas as pd
 from datetime import datetime
 from bs4 import BeautifulSoup
 from .data_fetching import get_career_stats
 
 def process_data_for_plot(name):
 	"""Returns processed data to reproduce plot as a pandas dataframe"""
-	raw_career_stats = get_career_stats(name)
+	cleaned_data = _clean_data_for_processing(raw_career_stats)
 
-	match_dates = raw_career_stats[:, 0]
+	match_dates = data_extracted['Date']	
+	primary_player_dob = _get_player_dob(name)
+
+	primary_player_age_years = _calc_primary_player_ages(match_dates, primary_player_dob)
 	
+	# Calculate difference in years between primary player and their opponent's ages per match
+	opponent_years_diff = primary_player_age_years - opponent_age_years
 	
-	return NotImplementedError("process_data_for_plot not implemented")
+	# Tidy up table to contain the primary player's age and the difference in years between their opponents
+	cleaned_data['Primary_Player_Age'] = primary_player_age_years
+	cleaned_data['Opponent_Years_Diff'] = opponent_years_diff
+	
+	procesed_data = data_extracted.drop(columns=['Opponent_DOB'])
+
+	return processed_data
 
 def _handle_opponent_ages(match_dates, opponent_dobs_or_age):
 	"""Handle and return opponent ages if input is dob's or actual ages (in years)"""
