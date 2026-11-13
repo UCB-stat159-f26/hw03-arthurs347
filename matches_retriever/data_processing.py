@@ -6,7 +6,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 from .data_fetching import get_career_stats
 
-def process_data_for_plot(name):
+def get_plotting_data(name):
 	"""Returns processed data to reproduce plot as a pandas dataframe"""
 	cleaned_data = _clean_data_for_processing(raw_career_stats)
 
@@ -24,6 +24,9 @@ def process_data_for_plot(name):
 	
 	procesed_data = data_extracted.drop(columns=['Opponent_DOB'])
 
+	# Add full formatted name as attr for dataframe
+	procesed_data.attrs['fullname'] = _format_name(name)
+	
 	return processed_data
 
 def _handle_opponent_ages(match_dates, opponent_dobs_or_age):
