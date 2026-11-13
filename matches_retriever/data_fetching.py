@@ -1,11 +1,10 @@
 import requests
 
 def get_career_stats(name):
-	"""Return the careers stats for a given player"""
+    """Return the careers stats for a given player"""
 	url = _get_url_from_name(name)
 	raise NotImplementedError("get_career_stats not implemented")
 
-# Final format FirstnameLastnameCareer.js
 def _get_url_from_name(name):
 	"""Create tennisabstract career url from name"""
 	formatted_name = _format_name(name)

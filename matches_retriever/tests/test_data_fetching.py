@@ -1,5 +1,5 @@
 import pytest
-from matches_retriever.data_processing import _get_url_from_name, _format_name
+from matches_retriever.data_fetching import _get_url_from_name, _format_name
 
 def test_get_url_from_name_handles_invalid_players():
 	invalid_name = "Gaston Sanchez"
