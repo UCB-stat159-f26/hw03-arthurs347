@@ -9,17 +9,6 @@ def process_data_for_plot():
 	
 	return NotImplementedError("process_data_for_plot not implemented")
 
-
-def _get_primary_player_dob(name):
-	"Return the date of birth of the primary player"
-	abstract_page = _get_abstract_page(name)
-	soup = BeautifulSoup(html, "html.parser")
-
-	age_text = soup.find("td", string=re.compile("Age:")).get_text()
-	dob = re.search(r"\((.*?)\)", age_text).group(1)
-
-	return dob
-
 def _calc_primary_player_ages(match_dates, player_dob):
 	"""Return the primary player's ages in years for all matches as a numpy array"""
 	player_age_years = np.array([])

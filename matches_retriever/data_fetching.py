@@ -11,7 +11,17 @@ def get_career_stats(name):
 	career_stats = pd.DataFrame(json_parsed)
 	
 	return career_stats
-	
+
+def _get_player_dob(name):
+	"Return the date of birth of a player"
+	abstract_page = _get_abstract_page(name)
+	soup = BeautifulSoup(html, "html.parser")
+
+	age_text = soup.find("td", string=re.compile("Age:")).get_text()
+	dob = re.search(r"\((.*?)\)", age_text).group(1)
+
+	return dob
+
 def _get_abstract_page(name):
 	"""Return the abstract page for a player as html"""
 	formatted_name = _format_name(name)
