@@ -87,3 +87,38 @@ def _add_legend(ax, name):
 	    handletextpad=0.05,
 	    columnspacing=1.2
 	)
+
+def _add_text_and_title(ax, fig):
+	"""Add text and a title to the plot"""
+	plt.title("Serena Williams’s Professional Matches, Age 14 to 40",
+				  fontweight='bold', pad = 65)
+	
+	fig.text(
+	    0.15, 0,
+	    "Source: Tennis Abstract  •"  +
+		"Note: Data includes all WTA main draw matches and qualifiers," +
+		"as well as the Fed \nCup and the Olympics." +
+		"• By Leo Dominguez and Sara Ziegler",
+		fontsize=10,
+	    color="gray"
+	)
+	
+	ax.text(
+	    -0.03, 0.8,
+	    "Older\nthan\nopponent",
+	    transform=ax.transAxes,
+	    ha="center",
+	    va="center",
+	    fontsize=12,
+	    color="#808080"
+	)
+	
+	ax.text(
+	    -0.03, 0.1,
+	    "Younger\nthan\nopponent",
+	    transform=ax.transAxes,
+	    ha="center",
+	    va="center",
+	    fontsize=12,
+	    color="#808080"
+	)
