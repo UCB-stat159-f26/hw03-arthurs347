@@ -12,7 +12,6 @@ def _plot_datapoints(data, palette):
 	"""Plot the datapoints on the graph"""
 	sns.scatterplot(data,  x='Primary_Player_Age', y='Opponent_Years_Diff',
 					hue='Match_Outcome_Player', size=10, palette=palette)
-	sns.set_style("whitegrid")
 
 def _set_xy_axis_marks():
 	"""Set the x and y axis marks of the plot"""
@@ -40,3 +39,14 @@ def _set_labels(name):
 	plt.xlabel(f"{first_name}'s \n age:", c='gray', loc='left')
 	ax.xaxis.set_label_position("top")
 	plt.ylabel(None)
+
+def _set_styling():
+	"""Set styling for plot"""
+	sns.set_style("whitegrid")
+		
+	# Remove borders of the graph
+	ax.spines['bottom'].set_visible(True)
+	ax.spines['top'].set_visible(False)
+	ax.spines['left'].set_visible(False)
+	ax.spines['right'].set_visible(False)
+
