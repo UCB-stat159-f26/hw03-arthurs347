@@ -3,11 +3,31 @@ import re
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
+from data_fetching import get_career_stats
 
-def process_data_for_plot():
+def process_data_for_plot(name):
 	"""Returns processed data to reproduce plot as a pandas dataframe"""
+	raw_career_stats = get_career_stats(name)
+
+	match_dates = raw_career_stats[:, 0]
+	
 	
 	return NotImplementedError("process_data_for_plot not implemented")
+
+def _clean_data_for_processing(raw_data):
+	"""Return cleaned df with only necessary data"""
+	data_renamed = raw_data.rename(columns={'0': 'Date', '1': 'Tournament', '4': 'Match_Outcome_Player', 
+											'11': 'Opponent_Name', '16': 'Opponent_DOB_Or_Age'
+										   })
+	data_extracted = data_renamed[['Date', 'Tournament', 'Match_Outcome_Player', 
+								   'Opponent_Name', 'Opponent_DOB_Or_Age']]
+
+	# Convert columns to strings for easier processing
+	data_extracted['Date'] = data_extracted['Date'].astype('str')
+	data_extracted['Opponent_DOB_Or_Age'] = data_extracted['Opponent_DOB_Or_Age'].astype('str')
+
+	return data_extracted
+	
 
 def _calc_primary_player_ages(match_dates, player_dob):
 	"""Return the primary player's ages in years for all matches as a numpy array"""
