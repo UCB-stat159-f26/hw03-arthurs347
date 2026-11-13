@@ -1,3 +1,5 @@
+import numpy as np
+
 from datetime import datetime
 
 def process_data_for_plot():
@@ -5,8 +7,24 @@ def process_data_for_plot():
 	
 	return NotImplementedError("process_data_for_plot not implemented")
 
+
+def _get_primary_player_dob():	
+	return NotImplementedError("_get_primary_player_dob not implemented")
+
+def _calc_primary_player_ages(match_dates, player_dob):
+	player_age_years = np.array([])
+	
+	for match_date in match_dates:
+	    player_age = _calculate_age_years(match_date, player_dob)
+	    player_age_years = np.append(player_age_years, player_age)
+
+	return player_age_years
+
+def _calc_opponent_ages(match_dates, opponent_dobs=[], opponent_ages=[]):
+	return NotImplementedError("_calc_opponent_ages not implemented")
+
 def _calculate_age_years(match_date, date_of_birth):
-	"""Return age in years for provided match data and player date of birth"""
+	"""Return age in years for provided match date and player date of birth"""
 	date_parsed = datetime.strptime(match_date, "%Y%m%d")
 	dob_parsed = datetime.strptime(date_of_birth, "%Y%m%d")
 	
