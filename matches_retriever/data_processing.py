@@ -43,8 +43,8 @@ def _handle_opponent_ages(match_dates, opponent_dobs_or_age):
 	
 def _clean_data_for_processing(raw_data):
 	"""Return cleaned df with only necessary data"""
-	data_renamed = raw_data.rename(columns={'0': 'Date', '1': 'Tournament', '4': 'Match_Outcome_Player', 
-											'11': 'Opponent_Name', '16': 'Opponent_DOB_Or_Age'
+	data_renamed = raw_data.rename(columns={0: 'Date', 1: 'Tournament', 4: 'Match_Outcome_Player', 
+											11: 'Opponent_Name', 16: 'Opponent_DOB_Or_Age'
 										   })
 	data_extracted = data_renamed[['Date', 'Tournament', 'Match_Outcome_Player', 
 								   'Opponent_Name', 'Opponent_DOB_Or_Age']]

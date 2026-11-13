@@ -63,17 +63,17 @@ def test_clean_data_for_processing():
 	expected_date_type = 'str'
 	expected_opp_dob_age_type = 'str'
 
-	assert list(raw_df_female.columns) == expected_columns
-	assert list(raw_df_male.columns) == expected_columns
+	assert list(cleaned_df_female.columns) == expected_columns
+	assert list(cleaned_df_male.columns) == expected_columns
 
-	assert len(raw_df_female) == expected_row_num
-	assert len(raw_df_male) == expected_row_num
+	assert len(cleaned_df_female) == expected_row_num
+	assert len(cleaned_df_male) == expected_row_num
 
-	assert raw_df_female['Date'] == expected_date_type
-	assert raw_df_male['Date'] == expected_date_type
+	assert cleaned_df_female['Date'].dtype == expected_date_type
+	assert cleaned_df_male['Date'].dtype == expected_date_type
 
-	assert raw_df_female['Opponent_DOB_Or_Age'] == expected_opp_dob_age_type
-	assert raw_df_male['Opponent_DOB_Or_Age'] == expected_opp_dob_age_type
+	assert cleaned_df_female['Opponent_DOB_Or_Age'].dtype == expected_opp_dob_age_type
+	assert cleaned_df_male['Opponent_DOB_Or_Age'].dtype == expected_opp_dob_age_type
 	
 def test_calc_primary_player_ages_returns_correct_ages():
 	match_dates = np.array(["20000101", "20010101"])
