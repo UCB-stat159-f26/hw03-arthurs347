@@ -77,3 +77,11 @@ def _format_name(name):
 	last_name_capitalized = last_name.capitalize()
 
 	return f"{first_name_capitalized}{last_name_capitalized}"
+
+def _extract_names(name):
+	formatted_name = _format_name(name)
+	split_name = result = re.findall(r'[A-Z][a-z]*', formatted_name)
+
+	first_name = split_name[0]
+	last_name = split_name[1]
+	return first_name, last_name

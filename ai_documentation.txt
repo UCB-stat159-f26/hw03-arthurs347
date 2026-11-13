@@ -114,3 +114,21 @@ print(is_valid_date("19700503"))  # Trueprint(is_valid_date("19701303"))  # Fals
 ```
 def is_valid_date(date):    if len(date) != 8 or not date.isascii() or not date.isdigit():        return False    try:        datetime.strptime(date, "%Y%m%d")        return True    except ValueError:        return False
 ```
+
+PROMPT:
+How to split str by capital letters
+
+RESPONSE:
+Use Python's `re` module to split a string at capital letters.
+
+```
+import rename = "FirstNameLastName"result = re.findall(r'[A-Z][a-z]*', name)print(result)# ['First', 'Name', 'Last', 'Name']
+```
+
+**Alternatively, use&#x20;**`re.split()` to split immediately before each capital letter:
+
+```
+result = re.split(r'(?=[A-Z])', "FirstnameLastname")result = [x for x in result if x]print(result)# ['Firstname', 'Lastname']
+```
+
+**Recommendation:** Use `re.findall()` for simple CamelCase strings. Use `re.split()` when you want to preserve characters that don't match the capitalization pattern.
