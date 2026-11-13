@@ -1,0 +1,17 @@
+PROMPT: 
+How to grab the date of birth from this element in an html page in python: <td>Age: 45 (26-Sep-1981)</td>
+
+RESPONSE:
+You can use **BeautifulSoup** and a regular expression to extract the date inside parentheses.
+
+```
+from bs4 import BeautifulSoupimport rehtml = "<td>Age: 45 (26-Sep-1981)</td>"soup = BeautifulSoup(html, "html.parser")age_text = soup.find("td", string=re.compile("Age:")).get_text()dob = re.search(r"\((.*?)\)", age_text).group(1)print(dob)  # 26-Sep-1981
+```
+
+**Convert it to&#x20;**`datetime`**:**
+
+```
+from datetime import datetimedob = datetime.strptime(dob, "%d-%b-%Y")print(dob.strftime("%Y%m%d"))  # 19810926
+```
+
+The regex `r"\((.*?)\)"` extracts whatever text appears between parentheses, so it works regardless of the player's age or birth date.
