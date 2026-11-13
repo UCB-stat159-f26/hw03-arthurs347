@@ -1,9 +1,26 @@
 import requests
 
 def get_career_stats(name):
-    """Return the careers stats for a given player"""
+    """Return the careers stats for a given player as a pandas dataframe"""
 	url = _get_url_from_name(name)
+
+	response = requests.get(url)
+
 	raise NotImplementedError("get_career_stats not implemented")
+
+def _format_response_to_json(response):
+	"""Format response object to json"""
+	javascript_text = response.text
+
+	# Obtain beginning and end indexes of the list
+	text_split_start = javascript_text.find('[')
+	text_split_end = javascript_text.rfind(']')+1
+
+	# Extract and parse text to json
+	json_indexed = javascript_text[text_split_start:text_split_end]
+	json_parsed = json.loads(json_indexed)
+	
+	return json_parsed
 
 def _get_url_from_name(name):
 	"""Create tennisabstract career url from name"""
@@ -21,7 +38,7 @@ def _get_url_from_name(name):
 
 
 def _format_name(name):
-	"""Returns player name as formatted in tennisabstract url"""
+	"""Return player name as formatted in tennisabstract url"""
 	#TODO: Reduce to under 10 lines
 	# Split provided name string based on provided format
 	if (" " in name):
