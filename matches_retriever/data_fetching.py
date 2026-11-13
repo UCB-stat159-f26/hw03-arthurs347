@@ -1,12 +1,16 @@
 import requests
 
 def get_career_stats(name):
-    """Return the careers stats for a given player as a pandas dataframe"""
+	"""Return the careers stats for a given player as a pandas dataframe"""
 	url = _get_url_from_name(name)
 
 	response = requests.get(url)
+	json_parsed = _format_response_to_json(response)
 
-	raise NotImplementedError("get_career_stats not implemented")
+	# Convert json to pandas dataframe
+	career_stats = pd.DataFrame(json_parsed)
+
+	return career_stats
 
 def _format_response_to_json(response):
 	"""Format response object to json"""
