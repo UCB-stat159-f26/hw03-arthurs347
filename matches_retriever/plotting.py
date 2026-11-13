@@ -50,3 +50,40 @@ def _set_styling():
 	ax.spines['left'].set_visible(False)
 	ax.spines['right'].set_visible(False)
 
+def _add_legend(ax, name):
+	"""Add legend to plot"""
+
+	# Extract first name
+	full_name = _extract_names(name)
+	first_name = full_name[0]
+	
+	legend_handles = [
+	    Line2D(
+	        [0], [0],
+	        marker="o",
+	        color="none",
+	        markerfacecolor="#40C4E8",
+	        markeredgecolor="none",
+	        markersize=10,
+	        label=f"Match {first_name} won"
+	    ),
+	    Line2D(
+	        [0], [0],
+	        marker="o",
+	        color="none",
+	        markerfacecolor="#963B91",
+	        markeredgecolor="none",
+	        markersize=10,
+	        label="Match lost"
+	    )
+	]
+	
+	ax.legend(
+	    handles=legend_handles,
+	    bbox_to_anchor=(0.7, 1.15),
+	    ncol=2,
+	    frameon=False,
+	    fontsize=12,
+	    handletextpad=0.05,
+	    columnspacing=1.2
+	)
