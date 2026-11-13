@@ -12,6 +12,7 @@ def _get_primary_player_dob():
 	return NotImplementedError("_get_primary_player_dob not implemented")
 
 def _calc_primary_player_ages(match_dates, player_dob):
+	"""Return the primary player's ages in years for all matches as a numpy array"""
 	player_age_years = np.array([])
 	
 	for match_date in match_dates:
@@ -21,7 +22,7 @@ def _calc_primary_player_ages(match_dates, player_dob):
 	return player_age_years
 
 def _calc_opponent_ages(match_dates, opponent_dobs):
-	"""Return opponent's ages for all matches as a numpy array"""
+	"""Return opponent's ages in years for all matches as a numpy array"""
 	opponents_age_years = np.array([])
 
 	for match_date, opponent_dob in zip(match_dates, opponent_dobs):
