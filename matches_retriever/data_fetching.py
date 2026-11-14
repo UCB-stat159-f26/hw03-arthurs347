@@ -15,26 +15,6 @@ def _get_career_stats(name):
 	career_stats = pd.DataFrame(json_parsed)
 	
 	return career_stats
-
-def _get_abstract_page(name):
-    """Return the abstract page for a player as html"""
-    BASE_URL = "https://www.tennisabstract.com/cgi-bin"
-    formatted_name = _format_name(name)
-    
-    for endpoint in ("player.cgi", "wplayer.cgi"):
-        url = f"{BASE_URL}/{endpoint}"
-    
-        response = requests.get(
-            url,
-            params={"p": formatted_name},
-            timeout=15
-        )
-        response.raise_for_status()
-    
-        soup = BeautifulSoup(response.text, "html.parser")
-    
-        return soup
-    raise ValueError(f"Player not found: {name}")
 	
 def _format_response_to_json(response):
 	"""Format response object to json"""
@@ -89,6 +69,26 @@ def _format_name(name):
 
 	return f"{first_name_capitalized}{last_name_capitalized}"
 
+def _get_abstract_page(name):
+    """Return the abstract page for a player as html"""
+    BASE_URL = "https://www.tennisabstract.com/cgi-bin"
+    formatted_name = _format_name(name)
+    
+    for endpoint in ("player.cgi", "wplayer.cgi"):
+        url = f"{BASE_URL}/{endpoint}"
+    
+        response = requests.get(
+            url,
+            params={"p": formatted_name},
+            timeout=15
+        )
+        response.raise_for_status()
+    
+        soup = BeautifulSoup(response.text, "html.parser")
+    
+        return soup
+    raise ValueError(f"Player not found: {name}")
+	
 def _get_player_dob(name):
     "Return the date of birth of a player"
     soup = _get_abstract_page(name)
