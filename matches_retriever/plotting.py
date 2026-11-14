@@ -120,7 +120,7 @@ def _add_text_and_title(ax, fig, first_name, last_name, min_age, max_age):
 	)
 	
 	ax.text(
-	    -0.03, 0.8,
+	    -0.1, 0.8,
 	    "Older\nthan\nopponent",
 	    transform=ax.transAxes,
 	    ha="center",
@@ -130,7 +130,7 @@ def _add_text_and_title(ax, fig, first_name, last_name, min_age, max_age):
 	)
 	
 	ax.text(
-	    -0.03, 0.1,
+	    -0.1, 0.1,
 	    "Younger\nthan\nopponent",
 	    transform=ax.transAxes,
 	    ha="center",
