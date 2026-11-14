@@ -81,7 +81,7 @@ def _format_name(name):
 def _get_player_dob(name):
 	"Return the date of birth of a player"
 	abstract_page = _get_abstract_page(name)
-	soup = BeautifulSoup(html, "html.parser")
+	soup = BeautifulSoup(abstract_page, "html.parser")
 
 	age_text = soup.find("td", string=re.compile("Age:")).get_text()
 	dob = re.search(r"\((.*?)\)", age_text).group(1)
