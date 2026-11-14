@@ -1,27 +1,31 @@
 import numpy as np
 from datetime import datetime
-from .data_fetching import _get_player_dob, _format_name
+from .data_fetching import get_career_stats, _get_player_dob, _format_name
 
 def get_plotting_data(name):
 	"""Returns processed data to reproduce plot as a pandas dataframe"""
+	raw_career_stats = get_career_stats(name)
 	cleaned_data = _clean_data_for_processing(raw_career_stats)
 
-	match_dates = data_extracted['Date']	
+	match_dates = cleaned_data['Date']	
 	primary_player_dob = _get_player_dob(name)
+	opponents_dobs_or_age = cleaned_data["Opponent_DOB_Or_Age"]
 
+	# Extract age in years for primary player and opponents
 	primary_player_age_years = _calc_primary_player_ages(match_dates, primary_player_dob)
+	opponent_ages_years = _handle_opponent_ages(match_dates, opponents_dobs_or_age)
 	
 	# Calculate difference in years between primary player and their opponent's ages per match
-	opponent_years_diff = primary_player_age_years - opponent_age_years
+	opponent_years_diff = primary_player_age_years - opponent_ages_years
 	
 	# Tidy up table to contain the primary player's age and the difference in years between their opponents
 	cleaned_data['Primary_Player_Age'] = primary_player_age_years
 	cleaned_data['Opponent_Years_Diff'] = opponent_years_diff
 	
-	procesed_data = data_extracted.drop(columns=['Opponent_DOB'])
+	processed_data = cleaned_data.drop(columns=['Opponent_DOB'])
 
 	# Add full formatted name as attr for dataframe
-	procesed_data.attrs['fullname'] = _format_name(name)
+	processed_data.attrs['fullname'] = _format_name(name)
 	
 	return processed_data
 
