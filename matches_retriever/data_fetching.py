@@ -63,7 +63,6 @@ def _extract_names(name):
 
 def _format_name(name):
 	"""Return player name as formatted in tennisabstract url"""
-	#TODO: Reduce to under 10 lines
 	# Split provided name string based on provided format
 	if (" " in name):
 		split_name = name.split()
