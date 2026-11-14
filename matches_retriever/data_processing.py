@@ -1,10 +1,6 @@
 import numpy as np
-import re
-import requests
-import pandas as pd
 from datetime import datetime
-from bs4 import BeautifulSoup
-from .data_fetching import get_career_stats
+from .data_fetching import _get_player_dob, _format_name
 
 def get_plotting_data(name):
 	"""Returns processed data to reproduce plot as a pandas dataframe"""

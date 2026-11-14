@@ -1,4 +1,7 @@
 import requests
+import pandas as pd
+import re
+from bs4 import BeautifulSoup
 
 def get_career_stats(name):
 	"""Return the careers stats for a given player as a pandas dataframe"""
@@ -11,16 +14,6 @@ def get_career_stats(name):
 	career_stats = pd.DataFrame(json_parsed)
 	
 	return career_stats
-
-def _get_player_dob(name):
-	"Return the date of birth of a player"
-	abstract_page = _get_abstract_page(name)
-	soup = BeautifulSoup(html, "html.parser")
-
-	age_text = soup.find("td", string=re.compile("Age:")).get_text()
-	dob = re.search(r"\((.*?)\)", age_text).group(1)
-
-	return dob
 
 def _get_abstract_page(name):
 	"""Return the abstract page for a player as html"""
@@ -59,6 +52,13 @@ def _get_url_from_name(name):
 		
 	return formated_url
 
+def _extract_names(name):
+	formatted_name = _format_name(name)
+	split_name = re.findall(r'[A-Z][a-z]*', formatted_name)
+
+	first_name = split_name[0]
+	last_name = split_name[1]
+	return first_name, last_name
 
 def _format_name(name):
 	"""Return player name as formatted in tennisabstract url"""
@@ -78,10 +78,12 @@ def _format_name(name):
 
 	return f"{first_name_capitalized}{last_name_capitalized}"
 
-def _extract_names(name):
-	formatted_name = _format_name(name)
-	split_name = result = re.findall(r'[A-Z][a-z]*', formatted_name)
+def _get_player_dob(name):
+	"Return the date of birth of a player"
+	abstract_page = _get_abstract_page(name)
+	soup = BeautifulSoup(html, "html.parser")
 
-	first_name = split_name[0]
-	last_name = split_name[1]
-	return first_name, last_name
+	age_text = soup.find("td", string=re.compile("Age:")).get_text()
+	dob = re.search(r"\((.*?)\)", age_text).group(1)
+
+	return dob

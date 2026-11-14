@@ -1,7 +1,6 @@
 import pytest
 import numpy as np
 import pandas as pd
-import json
 from matches_retriever.data_processing import (
 	_handle_opponent_ages,
 	_clean_data_for_processing,
