@@ -1,7 +1,7 @@
 # HW 3
 
 # Authorship
-This package has been created by Arthur Sanchez for the class Stat 159 at UC Berkeley on Thursday November 13th, 2026.
+This package has been created by Arthur Sanchez for the class Stat 159 at UC Berkeley on Thursday November 12th, 2026.
 
 # Purpose
 
