@@ -4,7 +4,7 @@ import json
 import re
 from bs4 import BeautifulSoup
 
-def get_career_stats(name):
+def _get_career_stats(name):
 	"""Return the careers stats for a given player as a pandas dataframe"""
 	url = _get_url_from_name(name)
 
