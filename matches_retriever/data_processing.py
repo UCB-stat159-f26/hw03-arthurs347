@@ -1,10 +1,10 @@
 import numpy as np
 from datetime import datetime
-from .data_fetching import get_career_stats, _get_player_dob, _format_name
+from .data_fetching import _get_career_stats, _get_player_dob, _format_name
 
 def get_plotting_data(name):
 	"""Returns processed data to reproduce plot as a pandas dataframe"""
-	raw_career_stats = get_career_stats(name)
+	raw_career_stats = _get_career_stats(name)
 	cleaned_data = _clean_data_for_processing(raw_career_stats)
 
 	match_dates = cleaned_data['Date']	
