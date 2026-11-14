@@ -1,3 +1,5 @@
+All prompts were generate with CHATGPT GPT-6 Sol
+
 PROMPT: 
 How to grab the date of birth from this element in an html page in python: <td>Age: 45 (26-Sep-1981)</td>
 
