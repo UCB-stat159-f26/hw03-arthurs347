@@ -24,11 +24,20 @@ def get_plotting_data(name):
 	
 	processed_data = cleaned_data.drop(columns=['Opponent_DOB_Or_Age'])
 
-	# Add full formatted name as attr for dataframe
-	processed_data.attrs['fullname'] = _format_name(name)
+	data_with_attrs = _add_attrs(processed_data, name)
 	
-	return processed_data
+	return data_with_attrs
 
+def _add_attrs(df, name):
+	"""Add attributes to dataframe useful for plotting graph"""
+	df.attrs['fullname'] = _format_name(name)
+	df.attrs['minage'] = int(min(df['Primary_Player_Age']))
+	df.attrs['maxage'] = int(max(df['Primary_Player_Age']))
+	df.attrs['mindiff'] = int(min(df['Opponent_Years_Diff']))
+	df.attrs['maxdiff'] = int(max(df['Opponent_Years_Diff']))
+
+	return df
+	
 def _handle_opponent_ages(match_dates, opponent_dobs_or_age):
 	"""Handle and return opponent ages if input is dob's or actual ages (in years)"""
 	# Check if values are formatted as dobs or ages
