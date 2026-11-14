@@ -1,0 +1,19 @@
+[project]
+name = "matches_retriever"
+version = "0.1.0"
+description = "Package for plotting player career matches with their results from tennisabstract.com"
+authors = [{ name = "Arthur Sanchez" }]
+
+readme="README.md"
+
+requires-python = ">=3.14.10"
+dependencies = [
+    "numpy",
+    "pandas",
+	"beautifulsoup4",
+	"seaborn",
+	"matplotlib",
+]
+
+[project.urls]
+Homepage = "https://github.com/UCB-stat159-f26/hw03-arthurs347"
