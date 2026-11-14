@@ -17,13 +17,24 @@ def _get_career_stats(name):
 	return career_stats
 
 def _get_abstract_page(name):
-	"""Return the abstract page for a player as html"""
-	formatted_name = _format_name(name)
-	formatted_url = f"https://www.tennisabstract.com/cgi-bin/wplayer-classic.cgi?p={formatted_name}"
-
-	response = requests.get(formatted_url)
-	html = response.text
-	return html
+    """Return the abstract page for a player as html"""
+    BASE_URL = "https://www.tennisabstract.com/cgi-bin"
+    formatted_name = _format_name(name)
+    
+    for endpoint in ("player.cgi", "wplayer.cgi"):
+        url = f"{BASE_URL}/{endpoint}"
+    
+        response = requests.get(
+            url,
+            params={"p": formatted_name},
+            timeout=15
+        )
+        response.raise_for_status()
+    
+        soup = BeautifulSoup(response.text, "html.parser")
+    
+        return soup
+    raise ValueError(f"Player not found: {name}")
 	
 def _format_response_to_json(response):
 	"""Format response object to json"""
