@@ -44,10 +44,10 @@ def _handle_opponent_ages(match_dates, opponent_dobs_or_age):
 		datetime.strptime(opponent_dobs_or_age[0], "%Y%m%d")
 		opponent_ages = _calc_opponent_ages(match_dates, opponent_dobs_or_age)
 		print("String")
-	except TypeError:
+	except ValueError:
 		# Case of values formatted as years
 		print("Years")
-		opponent_ages = opponent_dobs_or_age
+		opponent_ages = opponent_dobs_or_age.astype('float')
 		
 	return opponent_ages
 	
