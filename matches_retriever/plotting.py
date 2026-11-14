@@ -15,8 +15,8 @@ def plot_career_matches(career_matches):
 	
 	_plot_datapoints(career_matches)
 	_set_xy_axis_marks()
-	_set_labels(first_name)
-	_set_styling()
+	_set_labels(ax, first_name)
+	_set_styling(ax)
 
 	_add_legend(ax, first_name)
 	_add_text_and_title(ax, fig)
@@ -49,13 +49,13 @@ def _set_xy_axis_marks():
 	# Add horizontal axis line
 	plt.axhline(y=0, linewidth=0.5, c='black')
 
-def _set_labels(first_name):
+def _set_labels(ax, first_name):
 	"""Set labels for plot"""
 	plt.xlabel(f"{first_name}'s \n age:", c='gray', loc='left')
 	ax.xaxis.set_label_position("top")
 	plt.ylabel(None)
 
-def _set_styling():
+def _set_styling(ax):
 	"""Set styling for plot"""
 	sns.set_style("whitegrid")
 		
