@@ -12,6 +12,7 @@ def plot_career_matches(career_matches):
 	fullname = career_matches.attrs['fullname']
 	fullname_split = _extract_names(fullname)
 	first_name = fullname_split[0]
+	last_name = fullname_split[1]
 	
 	_plot_datapoints(career_matches)
 	_set_xy_axis_marks()
@@ -19,7 +20,7 @@ def plot_career_matches(career_matches):
 	_set_styling(ax)
 
 	_add_legend(ax, first_name)
-	_add_text_and_title(ax, fig)
+	_add_text_and_title(ax, fig, first_name, last_name)
 
 	plt.show()
 	
@@ -99,9 +100,9 @@ def _add_legend(ax, first_name):
 	    columnspacing=1.2
 	)
 
-def _add_text_and_title(ax, fig):
+def _add_text_and_title(ax, fig, first_name, last_name):
 	"""Add text and a title to the plot"""
-	plt.title("Serena Williams’s Professional Matches, Age 14 to 40",
+	plt.title(f"{first_name} {last_name}’s Professional Matches, Age 14 to 40",
 				  fontweight='bold', pad = 65)
 	
 	fig.text(
