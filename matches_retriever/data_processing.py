@@ -22,7 +22,7 @@ def get_plotting_data(name):
 	cleaned_data['Primary_Player_Age'] = primary_player_age_years
 	cleaned_data['Opponent_Years_Diff'] = opponent_years_diff
 	
-	processed_data = cleaned_data.drop(columns=['Opponent_DOB'])
+	processed_data = cleaned_data.drop(columns=['Opponent_DOB_Or_Age'])
 
 	# Add full formatted name as attr for dataframe
 	processed_data.attrs['fullname'] = _format_name(name)
