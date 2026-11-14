@@ -33,8 +33,6 @@ def _add_attrs(df, name):
 	df.attrs['fullname'] = _format_name(name)
 	df.attrs['minage'] = int(min(df['Primary_Player_Age']))
 	df.attrs['maxage'] = int(max(df['Primary_Player_Age']))
-	df.attrs['mindiff'] = int(min(df['Opponent_Years_Diff']))
-	df.attrs['maxdiff'] = int(max(df['Opponent_Years_Diff']))
 
 	return df
 	

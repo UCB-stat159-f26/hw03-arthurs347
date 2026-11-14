@@ -13,14 +13,18 @@ def plot_career_matches(career_matches):
 	fullname_split = _extract_names(fullname)
 	first_name = fullname_split[0]
 	last_name = fullname_split[1]
-	
+
+	# Extract player ages
+	min_age = career_matches.attrs['minage']
+	max_age = career_matches.attrs['maxage']
+
 	_plot_datapoints(career_matches)
-	_set_xy_axis_marks()
+	_set_xy_axis_marks(min_age, max_age)
 	_set_labels(ax, first_name)
 	_set_styling(ax)
 
 	_add_legend(ax, first_name)
-	_add_text_and_title(ax, fig, first_name, last_name)
+	_add_text_and_title(ax, fig, first_name, last_name, min_age, max_age)
 
 	plt.show()
 	
@@ -34,7 +38,7 @@ def _plot_datapoints(data):
 	sns.scatterplot(data,  x='Primary_Player_Age', y='Opponent_Years_Diff',
 					hue='Match_Outcome_Player', size=10, palette=palette)
 
-def _set_xy_axis_marks():
+def _set_xy_axis_marks(min_age, max_age):
 	"""Set the x and y axis marks of the plot"""
 	plt.tick_params(top=True, labeltop=True, bottom=False,
 					labelbottom=False, length=0)
@@ -44,7 +48,7 @@ def _set_xy_axis_marks():
 	plt.yticks(y_ticks_vals, y_ticks_labels, c='gray')
 	 
 	# x-axis
-	x_ticks_vals = np.arange(14, 42, step=2)
+	x_ticks_vals = np.arange(min_age, max_age, step=2)
 	plt.xticks(x_ticks_vals, c='gray')
 	
 	# Add horizontal axis line
@@ -100,9 +104,9 @@ def _add_legend(ax, first_name):
 	    columnspacing=1.2
 	)
 
-def _add_text_and_title(ax, fig, first_name, last_name):
+def _add_text_and_title(ax, fig, first_name, last_name, min_age, max_age):
 	"""Add text and a title to the plot"""
-	plt.title(f"{first_name} {last_name}’s Professional Matches, Age 14 to 40",
+	plt.title(f"{first_name} {last_name}’s Professional Matches, Age {min_age} to {max_age}",
 				  fontweight='bold', pad = 65)
 	
 	fig.text(
