@@ -90,11 +90,19 @@ def _format_name(name):
 	return f"{first_name_capitalized}{last_name_capitalized}"
 
 def _get_player_dob(name):
-	"Return the date of birth of a player"
-	abstract_page = _get_abstract_page(name)
-	soup = BeautifulSoup(abstract_page, "html.parser")
-
-	age_text = soup.find("td", string=re.compile("Age:")).get_text()
-	dob = re.search(r"\((.*?)\)", age_text).group(1)
-
-	return dob
+    "Return the date of birth of a player"
+    soup = _get_abstract_page(name)
+    
+    scripts = "\n".join(
+        script.get_text()
+        for script in soup.find_all("script")
+    )
+    
+    match = re.search(r'var dob\s*=\s*(\d+)', scripts)
+    
+    player_dob = int(match.group(1)) if match else None
+    
+    if player_dob == None:
+        raise ValueError(f"Player not found: {name}") 
+        
+    return player_dob
