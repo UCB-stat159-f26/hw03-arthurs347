@@ -100,7 +100,7 @@ def _get_player_dob(name):
     
     match = re.search(r'var dob\s*=\s*(\d+)', scripts)
     
-    player_dob = int(match.group(1)) if match else None
+    player_dob = match.group(1) if match else None
     
     if player_dob == None:
         raise ValueError(f"Player not found: {name}") 
